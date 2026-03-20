@@ -1,0 +1,76 @@
+import Image from "next/image";
+
+export default function Hero() {
+  return (
+    <section className="relative overflow-hidden bg-slate-950 pb-16 pt-32 lg:pb-32 lg:pt-48">
+      <div className="container relative z-10 mx-auto px-6">
+        {/* Adicionado 'text-center' para mobile e 'lg:text-left' para desktop */}
+        <div className="grid grid-cols-1 items-center gap-12 text-center lg:grid-cols-2 lg:text-left">
+          {/* COLUNA: TEXTO E BOTÕES */}
+          {/* Com 'order-2' o texto vem abaixo da foto no mobile, 'lg:order-1' volta ao normal no desktop */}
+          <div className="order-2 lg:order-1">
+            <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-blue-400 md:text-sm">
+              Coordenador de TI | Analista de Sistemas
+            </h2>
+
+            <h1 className="mb-6 text-4xl font-extrabold leading-tight text-white md:text-6xl lg:text-7xl">
+              Estratégia de TI e{" "}
+              <span className="bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
+                Desenvolvimento
+              </span>
+            </h1>
+
+            <p className="mx-auto mb-10 max-w-2xl text-base leading-relaxed text-slate-400 md:text-lg lg:mx-0">
+              Profissional de TI com background híbrido em{" "}
+              <span className="font-semibold text-slate-200">
+                Sistemas (ADS)
+              </span>{" "}
+              e{" "}
+              <span className="font-semibold text-slate-200">
+                Ciências Biológicas
+              </span>
+              . Especialista em planejamento digital, SEO e infraestrutura
+              técnica.
+            </p>
+
+            <div className="flex flex-col gap-4 sm:flex-row sm:justify-center lg:justify-start">
+              <a
+                href="#experiencia"
+                className="rounded-lg bg-white px-8 py-4 text-center font-bold text-black transition hover:bg-slate-200"
+              >
+                Ver Experiência
+              </a>
+              <a
+                href="#formacao"
+                className="rounded-lg border border-slate-700 px-8 py-4 text-center font-bold text-white transition hover:bg-slate-900"
+              >
+                Ver Formação
+              </a>
+            </div>
+          </div>
+
+          {/* COLUNA: IMAGEM */}
+          {/* 'order-1' coloca a foto no topo no mobile */}
+          <div className="relative order-1 flex justify-center lg:order-2 lg:justify-end">
+            {/* Tamanhos responsivos: h-64/w-64 (mobile), h-80/w-80 (tablet), h-450/w-450 (desktop) */}
+            <div className="relative h-64 w-64 animate-float md:h-80 md:w-80 lg:h-[450px] lg:w-[450px]">
+              {/* Elemento decorativo de fundo */}
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-blue-500/20 to-emerald-500/20 blur-2xl"></div>
+
+              <Image
+                src="/vitor-foto.jpg"
+                alt="Vitor Cavalcante"
+                fill
+                className="relative rounded-3xl border border-slate-800 object-cover shadow-2xl transition-transform duration-500 hover:scale-[1.02]"
+                priority
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Glow de fundo */}
+      <div className="absolute right-0 top-0 -z-10 h-1/2 w-1/2 rounded-full bg-blue-500/10 blur-[120px]"></div>
+    </section>
+  );
+}
