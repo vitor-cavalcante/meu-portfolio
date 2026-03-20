@@ -11,11 +11,32 @@ export default function NavbarEn() {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  const scrollToTop = (e: React.MouseEvent) => {
+  // Função genérica para scroll suave (unificada para Nome e Seções)
+  const handleScroll = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     setIsOpen(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    router.push("/en", { scroll: false });
+
+    if (id === "top") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      router.push("/en", { scroll: false });
+    } else {
+      const element = document.getElementById(id);
+      if (element) {
+        // Offset de 80px para não cobrir o título da seção com o Navbar fixo
+        const offset = 80;
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = element.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+
+        router.push(`/en/#${id}`, { scroll: false });
+      }
+    }
   };
 
   const handleContactClick = () => {
@@ -23,15 +44,17 @@ export default function NavbarEn() {
     window.open(`mailto:${email}`, "_blank", "noopener,noreferrer");
   };
 
+  const contactBtnClass =
+    "rounded-full bg-white px-5 py-2 text-xs font-bold text-black transition-all duration-300 hover:bg-slate-200 shadow-[0_0_15px_rgba(255,255,255,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.6)]";
+
   return (
     <nav className="fixed top-0 z-50 w-full border-b border-slate-800 bg-slate-950/80 backdrop-blur-md">
-      {/* justify-between garante que os blocos das pontas se afastem */}
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-        {/* LADO ESQUERDO: Logo */}
+        {/* LADO ESQUERDO: Logo (Scroll to Top) */}
         <div className="flex flex-none items-center">
           <Link
             href="/en"
-            onClick={scrollToTop}
+            onClick={(e) => handleScroll(e, "top")}
             className="z-50 transition-opacity hover:opacity-80"
           >
             <span className="bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-xl font-bold text-transparent">
@@ -40,26 +63,41 @@ export default function NavbarEn() {
           </Link>
         </div>
 
-        {/* CENTRO: Links (Centralização absoluta em relação à largura da tela) */}
+        {/* CENTRO: Links (Desktop) */}
         <div className="hidden absolute left-1/2 -translate-x-1/2 items-center space-x-8 text-sm font-medium text-slate-300 md:flex">
-          <Link href="#about" className="transition hover:text-white">
+          <a
+            href="#about"
+            onClick={(e) => handleScroll(e, "about")}
+            className="transition hover:text-white cursor-pointer"
+          >
             About
-          </Link>
-          <Link href="#projects" className="transition hover:text-white">
+          </a>
+          <a
+            href="#projects"
+            onClick={(e) => handleScroll(e, "projects")}
+            className="transition hover:text-white cursor-pointer"
+          >
             Projects
-          </Link>
-          <Link href="#experience" className="transition hover:text-white">
+          </a>
+          <a
+            href="#experience"
+            onClick={(e) => handleScroll(e, "experience")}
+            className="transition hover:text-white cursor-pointer"
+          >
             Experience
-          </Link>
-          <Link href="#education" className="transition hover:text-white">
+          </a>
+          <a
+            href="#education"
+            onClick={(e) => handleScroll(e, "education")}
+            className="transition hover:text-white cursor-pointer"
+          >
             Education
-          </Link>
+          </a>
 
-          {/* Language Switcher */}
           <Link
             href="/"
             className="flex items-center gap-1.5 text-xs font-bold text-slate-500 transition hover:text-blue-400 border-l border-slate-800 pl-4"
-            title="Mudar para Português"
+            title="Switch to Portuguese"
           >
             <Globe size={14} />
             PT 🇧🇷
@@ -68,10 +106,7 @@ export default function NavbarEn() {
 
         {/* LADO DIREITO: Botão de Contato */}
         <div className="hidden md:flex flex-none items-center">
-          <button
-            onClick={handleContactClick}
-            className="rounded-full bg-white px-5 py-2 text-xs font-bold text-black transition hover:bg-slate-200"
-          >
+          <button onClick={handleContactClick} className={contactBtnClass}>
             Contact
           </button>
         </div>
@@ -92,47 +127,33 @@ export default function NavbarEn() {
           }`}
         >
           <div className="flex flex-col items-center space-y-8 text-xl font-medium text-slate-300">
-            <Link
-              href="#about"
-              onClick={toggleMenu}
-              className="hover:text-white"
-            >
+            <a href="#about" onClick={(e) => handleScroll(e, "about")}>
               About
-            </Link>
-            <Link
-              href="#projects"
-              onClick={toggleMenu}
-              className="hover:text-white"
-            >
+            </a>
+            <a href="#projects" onClick={(e) => handleScroll(e, "projects")}>
               Projects
-            </Link>
-            <Link
+            </a>
+            <a
               href="#experience"
-              onClick={toggleMenu}
-              className="hover:text-white"
+              onClick={(e) => handleScroll(e, "experience")}
             >
               Experience
-            </Link>
-            <Link
-              href="#education"
-              onClick={toggleMenu}
-              className="hover:text-white"
-            >
+            </a>
+            <a href="#education" onClick={(e) => handleScroll(e, "education")}>
               Education
-            </Link>
+            </a>
 
             <Link
               href="/"
               onClick={toggleMenu}
               className="flex items-center gap-2 text-lg font-bold text-blue-400"
             >
-              <Globe size={20} />
-              PT 🇧🇷
+              <Globe size={20} /> PT 🇧🇷
             </Link>
 
             <button
               onClick={handleContactClick}
-              className="mt-4 rounded-full bg-white px-8 py-3 text-sm font-bold text-black transition hover:bg-slate-200"
+              className={`${contactBtnClass} mt-4 px-8 py-3 text-sm`}
             >
               Contact
             </button>
