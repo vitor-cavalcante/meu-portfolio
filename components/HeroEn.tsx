@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 export default function HeroEn() {
-  // 💡 PADRONIZAÇÃO: Mesma intensidade de glow e escala do Hero PT
   const primaryBtnClass =
     "rounded-lg bg-white px-8 py-4 text-center font-bold text-black transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] hover:bg-slate-200 hover:scale-[1.02]";
 

@@ -3,9 +3,6 @@
 import { Github, Linkedin, Mail } from "lucide-react";
 
 export default function Footer() {
-  // Calculamos o ano diretamente.
-  // No servidor (SSR) ele será 2026, no cliente ele assume o ano atual.
-  // Isso elimina a necessidade de useState e useEffect, matando o erro do ESLint.
   const currentYear =
     typeof window !== "undefined" ? new Date().getFullYear() : 2026;
 

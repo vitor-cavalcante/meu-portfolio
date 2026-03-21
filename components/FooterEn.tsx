@@ -15,7 +15,6 @@ export default function FooterEn() {
 
   return (
     <footer className="border-t border-slate-900 bg-slate-950 py-12 relative overflow-hidden">
-      {/* Subtle background gradient for depth */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent"></div>
 
       <div className="container mx-auto px-6 relative z-10">

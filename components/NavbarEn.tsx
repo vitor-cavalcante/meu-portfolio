@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Menu, X, Globe } from "lucide-react";
@@ -11,7 +11,18 @@ export default function NavbarEn() {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  // Função genérica para scroll suave (unificada para Nome e Seções)
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
   const handleScroll = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     setIsOpen(false);
@@ -22,7 +33,6 @@ export default function NavbarEn() {
     } else {
       const element = document.getElementById(id);
       if (element) {
-        // Offset de 80px para não cobrir o título da seção com o Navbar fixo
         const offset = 80;
         const bodyRect = document.body.getBoundingClientRect().top;
         const elementRect = element.getBoundingClientRect().top;
@@ -50,7 +60,7 @@ export default function NavbarEn() {
   return (
     <nav className="fixed top-0 z-50 w-full border-b border-slate-800 bg-slate-950/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-        {/* LADO ESQUERDO: Logo (Scroll to Top) */}
+        {/* LEFT: Logo */}
         <div className="flex flex-none items-center">
           <Link
             href="/en"
@@ -63,7 +73,7 @@ export default function NavbarEn() {
           </Link>
         </div>
 
-        {/* CENTRO: Links (Desktop) */}
+        {/* CENTER: Links (Desktop) */}
         <div className="hidden absolute left-1/2 -translate-x-1/2 items-center space-x-8 text-sm font-medium text-slate-300 md:flex">
           <a
             href="#about"
@@ -99,61 +109,83 @@ export default function NavbarEn() {
             className="flex items-center gap-1.5 text-xs font-bold text-slate-500 transition hover:text-blue-400 border-l border-slate-800 pl-4"
             title="Switch to Portuguese"
           >
-            <Globe size={14} />
-            PT 🇧🇷
+            <Globe size={14} /> PT 🇧🇷
           </Link>
         </div>
 
-        {/* LADO DIREITO: Botão de Contato */}
+        {/* RIGHT: Contact Button */}
         <div className="hidden md:flex flex-none items-center">
           <button onClick={handleContactClick} className={contactBtnClass}>
             Contact
           </button>
         </div>
 
-        {/* MOBILE: Botão Hambúrguer */}
+        {/* MOBILE: Hamburger Button */}
         <button
-          className="z-50 ml-auto block text-slate-300 transition hover:text-white md:hidden"
+          className="z-[110] ml-auto block text-slate-300 transition hover:text-white md:hidden"
           onClick={toggleMenu}
           aria-label="Open menu"
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
 
-        {/* Menu Mobile Overlay */}
+        {/* Mobile Menu Overlay - Corrigido para total opacidade */}
         <div
-          className={`fixed inset-0 z-40 flex flex-col items-center justify-center bg-slate-950 transition-all duration-300 ease-in-out md:hidden ${
+          className={`fixed inset-0 z-[100] flex flex-col bg-[#020617] transition-all duration-300 ease-in-out md:hidden ${
             isOpen ? "opacity-100 visible" : "opacity-0 invisible"
           }`}
         >
-          <div className="flex flex-col items-center space-y-8 text-xl font-medium text-slate-300">
-            <a href="#about" onClick={(e) => handleScroll(e, "about")}>
+          {/* Internal Menu Header - Também opaco */}
+          <div className="flex h-16 items-center px-6 border-b border-slate-900/50 bg-[#020617]">
+            <span className="bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-lg font-bold text-transparent">
+              Navigation
+            </span>
+          </div>
+
+          {/* Links Area - Sólida para bloquear a imagem por baixo */}
+          <div className="flex flex-1 flex-col items-center justify-center space-y-8 text-xl font-medium text-slate-300 bg-[#020617]">
+            <a
+              href="#about"
+              onClick={(e) => handleScroll(e, "about")}
+              className="hover:text-white"
+            >
               About
             </a>
-            <a href="#projects" onClick={(e) => handleScroll(e, "projects")}>
+            <a
+              href="#projects"
+              onClick={(e) => handleScroll(e, "projects")}
+              className="hover:text-white"
+            >
               Projects
             </a>
             <a
               href="#experience"
               onClick={(e) => handleScroll(e, "experience")}
+              className="hover:text-white"
             >
               Experience
             </a>
-            <a href="#education" onClick={(e) => handleScroll(e, "education")}>
+            <a
+              href="#education"
+              onClick={(e) => handleScroll(e, "education")}
+              className="hover:text-white"
+            >
               Education
             </a>
+
+            <div className="h-px w-12 bg-slate-800"></div>
 
             <Link
               href="/"
               onClick={toggleMenu}
-              className="flex items-center gap-2 text-lg font-bold text-blue-400"
+              className="flex items-center gap-2 text-blue-400"
             >
-              <Globe size={20} /> PT 🇧🇷
+              <Globe size={20} /> Portuguese Version 🇧🇷
             </Link>
 
             <button
               onClick={handleContactClick}
-              className={`${contactBtnClass} mt-4 px-8 py-3 text-sm`}
+              className="rounded-full bg-white px-10 py-4 text-sm font-bold text-black shadow-[0_0_20px_rgba(255,255,255,0.2)]"
             >
               Contact
             </button>

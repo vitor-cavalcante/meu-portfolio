@@ -8,7 +8,6 @@ export default function ProjectsEn() {
     >
       <div className="container mx-auto px-6">
         <h2 className="flex items-center gap-4 text-3xl font-bold text-white mb-12">
-          {/* PADRONIZAÇÃO: Glow esmeralda no indicador lateral */}
           <span className="h-8 w-1 rounded-full bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.5)]"></span>
           Projects
         </h2>
