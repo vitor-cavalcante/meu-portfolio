@@ -58,14 +58,14 @@ export default function NavbarEn() {
     "rounded-full bg-white px-5 py-2 text-xs font-bold text-black transition-all duration-300 hover:bg-slate-200 shadow-[0_0_15px_rgba(255,255,255,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.6)]";
 
   return (
-    <nav className="fixed top-0 z-50 w-full border-b border-slate-800 bg-slate-950/80 backdrop-blur-md">
+    <nav className="fixed top-0 z-[100] w-full border-b border-slate-800 bg-slate-950/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         {/* LEFT: Logo */}
         <div className="flex flex-none items-center">
           <Link
             href="/en"
             onClick={(e) => handleScroll(e, "top")}
-            className="z-50 transition-opacity hover:opacity-80"
+            className="z-[120] transition-opacity hover:opacity-80"
           >
             <span className="bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-xl font-bold text-transparent">
               Vitor Cavalcante
@@ -120,29 +120,31 @@ export default function NavbarEn() {
           </button>
         </div>
 
-        {/* MOBILE: Hamburger Button */}
+        {/* MOBILE: Hamburger Button - Fixed with higher z-index and pointer-events */}
         <button
-          className="z-[110] ml-auto block text-slate-300 transition hover:text-white md:hidden"
+          className="relative z-[120] ml-auto block p-2 text-slate-300 transition hover:text-white md:hidden pointer-events-auto"
           onClick={toggleMenu}
-          aria-label="Open menu"
+          aria-label={isOpen ? "Close menu" : "Open menu"}
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
 
-        {/* Mobile Menu Overlay - Corrigido para total opacidade */}
+        {/* Mobile Menu Overlay - Corrected for total opacity and interaction */}
         <div
-          className={`fixed inset-0 z-[100] flex flex-col bg-[#020617] transition-all duration-300 ease-in-out md:hidden ${
-            isOpen ? "opacity-100 visible" : "opacity-0 invisible"
+          className={`fixed inset-0 z-[110] flex flex-col bg-[#020617] transition-all duration-300 ease-in-out md:hidden ${
+            isOpen
+              ? "opacity-100 visible pointer-events-auto"
+              : "opacity-0 invisible pointer-events-none"
           }`}
         >
-          {/* Internal Menu Header - Também opaco */}
+          {/* Internal Menu Header */}
           <div className="flex h-16 items-center px-6 border-b border-slate-900/50 bg-[#020617]">
             <span className="bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-lg font-bold text-transparent">
               Navigation
             </span>
           </div>
 
-          {/* Links Area - Sólida para bloquear a imagem por baixo */}
+          {/* Links Area */}
           <div className="flex flex-1 flex-col items-center justify-center space-y-8 text-xl font-medium text-slate-300 bg-[#020617]">
             <a
               href="#about"

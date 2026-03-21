@@ -57,13 +57,13 @@ export default function Navbar() {
     "rounded-full bg-white px-5 py-2 text-xs font-bold text-black transition-all duration-300 hover:bg-slate-200 shadow-[0_0_15px_rgba(255,255,255,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.6)]";
 
   return (
-    <nav className="fixed top-0 z-50 w-full border-b border-slate-800 bg-slate-950/80 backdrop-blur-md">
+    <nav className="fixed top-0 z-[100] w-full border-b border-slate-800 bg-slate-950/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         <div className="flex flex-none items-center">
           <Link
             href="/"
             onClick={(e) => handleScroll(e, "top")}
-            className="z-50 transition-opacity hover:opacity-80"
+            className="z-[120] transition-opacity hover:opacity-80"
           >
             <span className="bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-xl font-bold text-transparent">
               Vitor Cavalcante
@@ -71,6 +71,7 @@ export default function Navbar() {
           </Link>
         </div>
 
+        {/* Desktop Menu */}
         <div className="hidden absolute left-1/2 -translate-x-1/2 items-center space-x-8 text-sm font-medium text-slate-300 md:flex">
           <a
             href="#sobre"
@@ -115,28 +116,31 @@ export default function Navbar() {
           </button>
         </div>
 
+        {/* Botão Hambúrguer Mobile - Aumentado z-index e adicionado pointer-events-auto */}
         <button
-          className="z-[110] ml-auto block text-slate-300 transition hover:text-white md:hidden"
+          className="relative z-[120] ml-auto block p-2 text-slate-300 transition hover:text-white md:hidden pointer-events-auto"
           onClick={toggleMenu}
           aria-label="Menu"
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
 
-        {/* Menu Mobile Overlay com Fundo Sólido e Opaco */}
+        {/* Menu Mobile Overlay */}
         <div
-          className={`fixed inset-0 z-[100] flex flex-col bg-[#020617] transition-all duration-300 ease-in-out md:hidden ${
-            isOpen ? "opacity-100 visible" : "opacity-0 invisible"
+          className={`fixed inset-0 z-[110] flex flex-col bg-[#020617] transition-all duration-300 ease-in-out md:hidden ${
+            isOpen
+              ? "opacity-100 visible pointer-events-auto"
+              : "opacity-0 invisible pointer-events-none"
           }`}
         >
-          {/* Header Interno para manter o visual limpo */}
+          {/* Header Interno do Menu */}
           <div className="flex h-16 items-center px-6 border-b border-slate-900/50 bg-[#020617]">
             <span className="bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-lg font-bold text-transparent">
               Navegação
             </span>
           </div>
 
-          {/* Área de links com fundo sólido para bloquear a imagem do Hero */}
+          {/* Área de links */}
           <div className="flex flex-1 flex-col items-center justify-center space-y-8 text-xl font-medium text-slate-300 bg-[#020617]">
             <a
               href="#sobre"
