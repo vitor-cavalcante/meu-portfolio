@@ -8,9 +8,18 @@ const nextConfig = {
         headers: [
           {
             key: "Content-Security-Policy",
-            // Permite scripts e estilos do próprio domínio ('self') e inlines seguros
             value:
-              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://vitorcavalcante.vercel.app/;",
+              "default-src 'self'; " +
+              "script-src 'self'; " + // Removido unsafe-inline/eval para segurança total
+              "style-src 'self' 'unsafe-inline'; " + // Mantido para o Tailwind funcionar
+              "img-src 'self' data: blob:; " +
+              "font-src 'self'; " +
+              "connect-src 'self' https://vitor-cavalcante.vercel.app; " +
+              "object-src 'none'; " +
+              "base-uri 'self'; " +
+              "form-action 'self'; " +
+              "frame-ancestors 'none'; " +
+              "upgrade-insecure-requests;",
           },
           {
             key: "X-Frame-Options",
@@ -26,12 +35,16 @@ const nextConfig = {
           },
           {
             key: "Permissions-Policy",
-            // Desativa acesso à câmera, microfone e geolocalização por padrão
-            value: "camera=(), microphone=(), geolocation=()",
+            value:
+              "camera=(), microphone=(), geolocation=(), interest-cohort=()",
           },
           {
             key: "X-XSS-Protection",
             value: "1; mode=block",
+          },
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=31536000; includeSubDomains; preload",
           },
         ],
       },
