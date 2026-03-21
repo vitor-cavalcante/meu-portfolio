@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { headers } from "next/headers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +30,6 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Vitor Cavalcante" }],
 
-  // Configurações de Open Graph (LinkedIn, WhatsApp, Facebook)
   openGraph: {
     title: "Vitor Cavalcante | Portfolio",
     description:
@@ -48,7 +48,6 @@ export const metadata: Metadata = {
     type: "website",
   },
 
-  // Configurações para Twitter/X
   twitter: {
     card: "summary_large_image",
     title: "Vitor Cavalcante | IT Strategy",
@@ -56,22 +55,27 @@ export const metadata: Metadata = {
     images: [`${siteUrl}/opengraph-image.png`],
   },
 
-  // Ícones
   icons: {
     icon: "/icon.svg",
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headerList = await headers();
+  const nonce = headerList.get("x-nonce") || "";
+
   return (
     <html
       lang="pt-BR"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <meta property="csp-nonce" content={nonce} />
+      </head>
       <body className="min-h-full flex flex-col bg-slate-950 text-white">
         <Navbar />
         <main className="flex-1">{children}</main>

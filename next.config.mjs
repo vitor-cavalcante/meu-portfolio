@@ -6,21 +6,7 @@ const nextConfig = {
       {
         source: "/(.*)",
         headers: [
-          {
-            key: "Content-Security-Policy",
-            value:
-              "default-src 'self'; " +
-              "script-src 'self' 'unsafe-eval' 'unsafe-inline'; " + // Corrigido: Permite hidratação e eventos do React
-              "style-src 'self' 'unsafe-inline'; " +
-              "img-src 'self' data: blob:; " +
-              "font-src 'self'; " +
-              "connect-src 'self' https://vitor-cavalcante.vercel.app; " +
-              "object-src 'none'; " +
-              "base-uri 'self'; " +
-              "form-action 'self'; " +
-              "frame-ancestors 'none'; " +
-              "upgrade-insecure-requests;",
-          },
+          // REMOVIDO: Content-Security-Policy (Movido para o proxy.ts para suporte a Nonce)
           {
             key: "X-Frame-Options",
             value: "DENY",
