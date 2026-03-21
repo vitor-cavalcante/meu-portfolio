@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import NavbarWrapper from "@/components/NavbarWrapper";
 import { headers } from "next/headers";
 
 const geistSans = Geist({
@@ -10,7 +10,7 @@ const geistSans = Geist({
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+  variable: "--font-geist-mono-alt",
   subsets: ["latin"],
 });
 
@@ -29,7 +29,6 @@ export const metadata: Metadata = {
     "Vitor Cavalcante",
   ],
   authors: [{ name: "Vitor Cavalcante" }],
-
   openGraph: {
     title: "Vitor Cavalcante | Portfolio",
     description:
@@ -41,23 +40,19 @@ export const metadata: Metadata = {
         url: `${siteUrl}/opengraph-image.png`,
         width: 1200,
         height: 630,
-        alt: "Vitor Cavalcante - IT Strategy & Development",
+        alt: "Vitor Cavalcante",
       },
     ],
     locale: "pt_BR",
     type: "website",
   },
-
   twitter: {
     card: "summary_large_image",
     title: "Vitor Cavalcante | IT Strategy",
     description: "Portfolio de tecnologia e desenvolvimento Full Stack.",
     images: [`${siteUrl}/opengraph-image.png`],
   },
-
-  icons: {
-    icon: "/icon.svg",
-  },
+  icons: { icon: "/icon.svg" },
 };
 
 export default async function RootLayout({
@@ -67,6 +62,7 @@ export default async function RootLayout({
 }>) {
   const headerList = await headers();
   const nonce = headerList.get("x-nonce") || "";
+  const isDev = process.env.NODE_ENV === "development";
 
   return (
     <html
@@ -74,10 +70,13 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        <meta property="csp-nonce" content={nonce} />
+        {/* Bypass Kaspersky: Só injeta CSP se não for ambiente de dev */}
+        {!isDev && <meta property="csp-nonce" content={nonce} />}
       </head>
       <body className="min-h-full flex flex-col bg-slate-950 text-white">
-        <Navbar />
+        {/* O Wrapper resolve instantaneamente se deve mostrar a Navbar ou não */}
+        <NavbarWrapper />
+
         <main className="flex-1">{children}</main>
       </body>
     </html>

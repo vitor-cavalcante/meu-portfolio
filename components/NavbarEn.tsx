@@ -59,7 +59,7 @@ export default function NavbarEn() {
 
   return (
     <>
-      <nav className="fixed top-0 z-[100] w-full border-b border-slate-800 bg-slate-950/80 backdrop-blur-md">
+      <nav className="en-navbar fixed top-0 z-[100] w-full border-b border-slate-800 bg-slate-950/80 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
           <div className="flex flex-none items-center">
             <Link
@@ -119,18 +119,15 @@ export default function NavbarEn() {
             </button>
           </div>
 
-          {/* Spacer for desktop layout alignment */}
           <div className="w-10 md:hidden"></div>
         </div>
       </nav>
 
-      {/* MOBILE BUTTON: Outside <nav> to bypass backdrop-blur issues */}
+      {/* MOBILE BUTTON: Key única adicionada para evitar conflito de renderização */}
       <button
+        key="mobile-menu-btn-en"
         className="fixed right-5 top-3.5 z-[200] block p-2 text-slate-300 transition hover:text-white md:hidden pointer-events-auto"
-        onClick={() => {
-          console.log("English menu toggled");
-          toggleMenu();
-        }}
+        onClick={toggleMenu}
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
         {isOpen ? <X size={28} /> : <Menu size={28} />}

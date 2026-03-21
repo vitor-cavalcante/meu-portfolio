@@ -3,6 +3,10 @@ import type { NextRequest } from "next/server";
 
 export function proxy(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
+  const isDev = process.env.NODE_ENV === "development";
+
+  const url = new URL(request.url);
+  const currentPath = url.pathname;
 
   const cspHeader = `
     default-src 'self';
@@ -22,7 +26,8 @@ export function proxy(request: NextRequest) {
 
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-nonce", nonce);
-  requestHeaders.set("Content-Security-Policy", cspHeader);
+
+  requestHeaders.set("x-url", currentPath);
 
   const response = NextResponse.next({
     request: {
@@ -30,7 +35,11 @@ export function proxy(request: NextRequest) {
     },
   });
 
-  response.headers.set("Content-Security-Policy", cspHeader);
+  response.headers.set("x-url", currentPath);
+
+  if (!isDev) {
+    response.headers.set("Content-Security-Policy", cspHeader);
+  }
 
   return response;
 }

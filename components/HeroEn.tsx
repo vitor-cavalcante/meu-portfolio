@@ -60,6 +60,8 @@ export default function HeroEn() {
                 src="/vitor-foto.jpg"
                 alt="Vitor Cavalcante"
                 fill
+                // Adicionado para resolver o aviso de performance do Next.js
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 450px"
                 className="relative rounded-3xl border border-slate-800 object-cover shadow-2xl transition-transform duration-500 hover:scale-[1.03]"
                 priority
               />
