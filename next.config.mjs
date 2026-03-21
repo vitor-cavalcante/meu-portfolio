@@ -10,8 +10,8 @@ const nextConfig = {
             key: "Content-Security-Policy",
             value:
               "default-src 'self'; " +
-              "script-src 'self'; " + // Removido unsafe-inline/eval para segurança total
-              "style-src 'self' 'unsafe-inline'; " + // Mantido para o Tailwind funcionar
+              "script-src 'self' 'unsafe-eval' 'unsafe-inline'; " + // Corrigido: Permite hidratação e eventos do React
+              "style-src 'self' 'unsafe-inline'; " +
               "img-src 'self' data: blob:; " +
               "font-src 'self'; " +
               "connect-src 'self' https://vitor-cavalcante.vercel.app; " +

@@ -11,6 +11,7 @@ export default function Navbar() {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
+  // Bloqueia o scroll do body quando o menu mobile está aberto
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -122,19 +123,19 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* BOTÃO HAMBÚRGUER: Movido para fora do <nav> e colocado como fixed */}
+      {/* BOTÃO HAMBÚRGUER: Posicionamento fixo com z-index máximo para garantir o clique */}
       <button
         className="fixed right-5 top-3.5 z-[200] block p-2 text-slate-300 transition hover:text-white md:hidden pointer-events-auto"
         onClick={() => {
-          console.log("Menu clicado!"); // Adicionado para debug no console
+          console.log("Menu clicado!");
           toggleMenu();
         }}
-        aria-label="Menu"
+        aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
       >
         {isOpen ? <X size={28} /> : <Menu size={28} />}
       </button>
 
-      {/* MENU MOBILE OVERLAY: Também com z-index alto mas abaixo do botão */}
+      {/* MENU MOBILE OVERLAY */}
       <div
         className={`fixed inset-0 z-[190] flex flex-col bg-[#020617] transition-all duration-300 ease-in-out md:hidden ${
           isOpen

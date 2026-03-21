@@ -11,6 +11,7 @@ export default function NavbarEn() {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
+  // Bloqueia o scroll do corpo da página quando o menu mobile está aberto
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
