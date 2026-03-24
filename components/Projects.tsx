@@ -1,4 +1,18 @@
+import { Github, ExternalLink, Dna } from "lucide-react";
+
 export default function Projects() {
+  const projects = [
+    {
+      title: "Bioparser C++",
+      description:
+        "Motor de processamento de alta performance para análise de sequências biológicas em arquivos FASTA. Focado em eficiência de memória e velocidade de execução.",
+      tags: ["C++", "Bioinformatics", "STL", "G++"],
+      github: "https://github.com/vitor-cavalcante/bioinfoparser-cpp",
+      icon: <Dna className="w-6 h-6 text-emerald-400" />,
+      color: "group-hover:border-emerald-500/50",
+    },
+  ];
+
   return (
     <section
       id="projetos"
@@ -10,47 +24,68 @@ export default function Projects() {
           Projetos
         </h2>
 
-        {/* Card de Placeholder com Efeito Glow */}
-        <div className="group relative overflow-hidden rounded-3xl border border-dashed border-slate-800 bg-slate-900/20 p-12 text-center transition-all duration-500 hover:border-blue-500/50 hover:bg-slate-900/40">
-          {/* Luzes de fundo dinâmicas */}
-          <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-blue-500/10 blur-[100px] transition-opacity group-hover:opacity-100 opacity-50"></div>
-          <div className="absolute -left-20 -bottom-20 h-64 w-64 rounded-full bg-emerald-500/5 blur-[100px]"></div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Card do Bioparser */}
+          {projects.map((project, index) => (
+            <div
+              key={index}
+              className={`group relative overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/20 p-8 transition-all duration-500 hover:bg-slate-900/40 ${project.color}`}
+            >
+              <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-emerald-500/10 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity"></div>
 
-          <div className="relative z-10 flex flex-col items-center">
-            {/* Ícone com pulso de brilho */}
-            <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-slate-950 border border-slate-800 text-2xl shadow-[0_0_20px_rgba(255,255,255,0.05)] group-hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] transition-all duration-500">
+              <div className="relative z-10">
+                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-slate-950 border border-slate-800 shadow-lg">
+                  {project.icon}
+                </div>
+
+                <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">
+                  {project.title}
+                </h3>
+
+                <p className="text-slate-400 leading-relaxed mb-6">
+                  {project.description}
+                </p>
+
+                <div className="flex flex-wrap gap-2 mb-8">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 text-xs font-medium rounded-full bg-slate-950 border border-slate-800 text-slate-300"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm font-bold text-white hover:text-emerald-400 transition-colors"
+                  >
+                    <Github size={18} /> Code
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+
+          {/* Card de Placeholder (Coming Soon) */}
+          <div className="group relative overflow-hidden rounded-3xl border border-dashed border-slate-800 bg-slate-900/10 p-8 flex flex-col items-center justify-center text-center transition-all duration-500 hover:border-blue-500/30">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-slate-950 border border-slate-800 text-xl group-hover:shadow-[0_0_20px_rgba(59,130,246,0.15)] transition-all">
               🚀
             </div>
-
-            <h3 className="text-2xl font-bold text-white mb-4">
-              Novas experiências em construção
+            <h3 className="text-lg font-bold text-white mb-2">
+              Unreal Engine Project
             </h3>
-
-            <p className="mx-auto max-w-lg text-slate-400 leading-relaxed">
-              Atualmente mergulhado no desenvolvimento de ambientes e mecânicas
-              na
-              <span className="text-blue-400 font-medium">
-                {" "}
-                Unreal Engine 5
-              </span>{" "}
-              e explorando soluções em
-              <span className="text-emerald-400 font-medium">
-                {" "}
-                Bioinformática
-              </span>
-              . Em breve, esta seção exibirá estudos de caso, repositórios e
-              protótipos funcionais.
+            <p className="text-xs text-slate-500 max-w-[200px] mb-4">
+              Ambientes e mecânicas em desenvolvimento na UE5.
             </p>
-
-            {/* Indicador de Status/Loading */}
-            <div className="mt-8 flex items-center gap-3 px-4 py-2 rounded-full bg-slate-950/50 border border-slate-800">
-              <div className="flex gap-1.5">
-                <span className="h-2 w-2 animate-bounce rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></span>
-                <span className="h-2 w-2 animate-bounce rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)] [animation-delay:-0.3s]"></span>
-                <span className="h-2 w-2 animate-bounce rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)] [animation-delay:-0.5s]"></span>
-              </div>
-              <span className="text-[10px] uppercase tracking-widest font-bold text-slate-500">
-                Compiling assets...
+            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-950/50 border border-slate-800">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-blue-500"></span>
+              <span className="text-[8px] uppercase tracking-[0.2em] font-bold text-slate-500">
+                Compiling...
               </span>
             </div>
           </div>
