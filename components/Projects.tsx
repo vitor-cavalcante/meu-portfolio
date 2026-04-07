@@ -79,7 +79,7 @@ export default function Projects() {
             <h3 className="text-lg font-bold text-white mb-2">
               Unreal Engine Project
             </h3>
-            <p className="text-xs text-slate-500 max-w-[200px] mb-4">
+            <p className="text-xs text-slate-500 max-w-50 mb-4">
               Ambientes e mecânicas em desenvolvimento na UE5.
             </p>
             <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-950/50 border border-slate-800">
