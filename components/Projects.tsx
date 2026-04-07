@@ -1,4 +1,4 @@
-import { Github, ExternalLink, Dna } from "lucide-react";
+import { Github, Dna } from "lucide-react";
 
 export default function Projects() {
   const projects = [
